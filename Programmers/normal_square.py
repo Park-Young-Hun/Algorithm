@@ -1,27 +1,12 @@
+import math
+
+
 def solution(w, h):
-    input_w = w
-    input_h = h
-    i = 2
+    gcd = math.gcd(w, h)
+    print(gcd)
 
-    while i < 10:
-        if (w % i == 0) and (h % i == 0):
-            w /= i
-            h /= i
-        else:
-            i += 1
+    local_count = w / gcd + h / gcd - 1
+    global_count = local_count * gcd
 
-    interval = w + h - 1
-    count = interval
-    temp_w = w
-    temp_h = h
-
-    while 1:
-        if w < input_w:
-            w += temp_w
-            h += temp_h
-            count += interval
-        else:
-            break
-
-    answer = input_w * input_h - count
+    answer = w * h - global_count
     return answer
