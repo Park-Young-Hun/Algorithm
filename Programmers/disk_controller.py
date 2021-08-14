@@ -1,5 +1,3 @@
-import heapq
-
 
 def solution(jobs):
     answer = 0
