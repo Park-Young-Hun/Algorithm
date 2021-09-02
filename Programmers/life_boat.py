@@ -16,3 +16,4 @@ def solution(people, limit):
     answer += 1  # 마지막 사람(들)이 타는 배 출발.
 
     return answer
+# 34mins
