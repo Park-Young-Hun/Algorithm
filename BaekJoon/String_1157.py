@@ -17,6 +17,5 @@ def solution(word):
         return chr(cnt.index(sorted_cnt[0]) + 97).upper()
 
 
-if __name__ == "__main__":
-    input_word = sys.stdin.readline()
-    print(solution(input_word))
+input_word = sys.stdin.readline()
+print(solution(input_word))
