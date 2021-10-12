@@ -93,3 +93,37 @@ visit[tr][tc] = 1
 move(tr, tc)
 
 print(ans)
+
+def solution(n, sand_map):
+    target = [n // 2, n // 2]
+    end = [0, 0]
+
+    move = ["left", "down", "right", "up"]
+    index = 0
+    way = move[index % 4]
+
+    stride = 1
+
+    while True:
+
+        for _ in range(2):
+            # print(target)
+            # print(way)
+            if way == "left":
+                target[1] -= stride
+                sand_map = scatter(target, way, sand_map)
+            elif way == "down":
+                target[0] += stride
+            elif way == "right":
+                target[1] += stride
+            else:
+                target[0] -= stride
+
+            if target == end:
+                return out
+
+            index += 1
+            way = move[index % 4]
+
+        if stride < n - 1:
+            stride += 1
