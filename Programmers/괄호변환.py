@@ -1,6 +1,3 @@
-from collections import deque
-
-
 def solution(p):
     if p == "":
         return ""
@@ -37,14 +34,14 @@ def solution(p):
 
 
 def verify(s):  # 올바른 괄호 문자열인지 판단.
-    queue = deque()
+    stack = []
 
     for i in s:
         if i == '(':
-            queue.append(i)
+            stack.append(i)
         else:
-            if queue:
-                queue.popleft()
+            if stack:
+                stack.pop(0)
             else:
                 return False
     return True
