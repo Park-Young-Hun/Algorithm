@@ -30,6 +30,7 @@ def solution(p):
                 u[i] = ')'
             else:
                 u[i] = '('
+
         return '(' + solution("".join(p)) + ')' + "".join(u)
 
 
