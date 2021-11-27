@@ -12,6 +12,11 @@ for i in range(t):
     cases.append(people)
 
 for case in cases:
-    case.sort()
-    case.sort(reverse=True)
+    answer = 0
+    doc = sorted(case)
+    interview = sorted(case, reverse=True)
+
+    for i in range(1, n):
+        for j in range(n):
+
 
