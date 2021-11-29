@@ -18,5 +18,7 @@ for case in cases:
 
     for i in range(1, n):
         for j in range(n):
+            target = doc[i]
+
 
 
