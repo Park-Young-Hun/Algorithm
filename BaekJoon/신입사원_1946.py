@@ -1,7 +1,6 @@
 import sys
 
 cases = []
-
 t = int(sys.stdin.readline())
 
 for i in range(t):
@@ -12,13 +11,12 @@ for i in range(t):
     cases.append(people)
 
 for case in cases:
-    answer = 0
-    doc = sorted(case)
-    interview = sorted(case, reverse=True)
+    case.sort(key=lambda x: x[0])
+    answer = 1
+    pivot = case[0][1]
+    for i in range(1, len(case)):
+        if case[i][1] < pivot:
+            answer += 1
+            pivot = case[i][1]
 
-    for i in range(1, n):
-        for j in range(n):
-            target = doc[i]
-
-
-
+    print(answer)
