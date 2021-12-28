@@ -27,24 +27,24 @@ def solution(places):
     return answer
 
 
-# def first_search(x, y):
-#     for k in range(4):
-#         nx = x + dx[k]
-#         ny = y + dy[k]
-#
-#         if 0 <= nx < 5 and 0 <= ny < 5:
-#             if room[nx][ny] == 'P':
-#                 return 0
-#             elif room[nx][ny] == '0':
-#                 return second_search(nx, ny, x, y)
-#
-#
-# def second_search(x, y, start_x, start_y):
-#     for k in range(4):
-#         nx = x + dx[k]
-#         ny = y + dy[k]
-#
-#         if 0 <= nx < 5 and 0 <= ny < 5 and nx != start_x and ny != start_y:
-#             if room[nx][ny] == 'P':
-#                 return 0
-#     return 1
+def first_search(x, y):
+    for k in range(4):
+        nx = x + dx[k]
+        ny = y + dy[k]
+
+        if 0 <= nx < 5 and 0 <= ny < 5:
+            if room[nx][ny] == 'P':
+                return 0
+            elif room[nx][ny] == '0':
+                return second_search(nx, ny, x, y)
+
+
+def second_search(x, y, start_x, start_y):
+    for k in range(4):
+        nx = x + dx[k]
+        ny = y + dy[k]
+
+        if 0 <= nx < 5 and 0 <= ny < 5 and nx != start_x and ny != start_y:
+            if room[nx][ny] == 'P':
+                return 0
+    return 1
