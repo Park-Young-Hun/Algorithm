@@ -14,7 +14,7 @@ def solution(places):
         for i in range(n):
             for j in range(n):
                 if room[i][j] == 'P':
-                    if first_search(i, j) == 0:
+                    if firstSearch(i, j) == 0:
                         flag = True
                         break
             if flag:
@@ -27,7 +27,7 @@ def solution(places):
     return answer
 
 
-def first_search(x, y):
+def firstSearch(x, y):
     for k in range(4):
         nx = x + dx[k]
         ny = y + dy[k]
@@ -35,16 +35,17 @@ def first_search(x, y):
         if 0 <= nx < 5 and 0 <= ny < 5:
             if room[nx][ny] == 'P':
                 return 0
-            elif room[nx][ny] == '0':
-                return second_search(nx, ny, x, y)
+            elif room[nx][ny] == 'O':
+                if secondSearch(nx, ny, x, y) == 0:
+                    return 0
 
 
-def second_search(x, y, start_x, start_y):
+def secondSearch(x, y, start_x, start_y):
     for k in range(4):
         nx = x + dx[k]
         ny = y + dy[k]
 
-        if 0 <= nx < 5 and 0 <= ny < 5 and nx != start_x and ny != start_y:
+        if 0 <= nx < 5 and 0 <= ny < 5 and (nx != start_x or ny != start_y):
             if room[nx][ny] == 'P':
                 return 0
     return 1
