@@ -8,4 +8,10 @@ def solution(expression):
 
     print(cases)
 
+    for case in cases:
+        for operator in case:
+            temp = ""
+            for letter in expression:
+                temp += letter
+
     return answer
