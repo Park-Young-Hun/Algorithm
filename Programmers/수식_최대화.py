@@ -2,7 +2,7 @@ from itertools import permutations
 
 
 def solution(expression):
-    answer = 0
+    answer = []
     operators = ["+", "*", "-"]
 
     cases = list(permutations(operators, 3))
@@ -13,26 +13,26 @@ def solution(expression):
             target = ""
             calc_fg = False
             for i in temp_expression[:]:
-                #print("target", target)
+
                 if i in operators and len(target) > 0:
 
-                    if calc_fg:
-                        print(temp_expression)
+                    if calc_fg and target[-1] not in operators:
                         temp_expression = temp_expression.replace(target, str(eval(target)))
-                        print(temp_expression)
                         target = str(eval(target))
                         calc_fg = False
+
                     if i == operator:
                         target += i
                         calc_fg = True
+                    elif target[-1] in operators:
+                        target += i
                     else:
                         target = ""
                 else:
                     target += i
 
-        # print(temp_expression)
+            if calc_fg:
+                temp_expression = temp_expression.replace(target, str(eval(target)))
+        answer.append(abs(int(temp_expression)))
 
-    return answer
-
-
-solution("100-200*300-500+20")
+    return max(answer)
