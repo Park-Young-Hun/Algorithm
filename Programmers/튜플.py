@@ -1,5 +1,7 @@
 def solution(s):
-    max_len_tuples = []
+    answer = []
+
+    s_list = []
     nums = []
     temp_nums = ""
 
@@ -13,11 +15,15 @@ def solution(s):
         elif i == '}':
             if temp_nums:
                 nums.append(int(temp_nums))
+                s_list.append(nums)
             temp_nums = ""
-
-            if len(nums) > len(max_len_tuples):
-                max_len_tuples = nums
-            print(max_len_tuples)
             nums = []
 
-    return max_len_tuples
+    s_list.sort(key=lambda x: len(x))
+
+    for i in s_list:
+        for j in i:
+            if j not in answer:
+                answer.append(j)
+
+    return answer
