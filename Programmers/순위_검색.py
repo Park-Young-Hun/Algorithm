@@ -17,35 +17,8 @@ def solution(info, query):
         query[i] = query[i].replace("and", "")
         query[i] = query[i].split()
         query[i] = ["".join(query[i][:4]), query[i][-1]]
-        # query[i] = list(filter(lambda a: a != 'and', query[i]))
-        # query[i][-1] = int(query[i][-1])
-
     print(query)
     info_keys = info_dict.keys()
     print(info_dict)
-
-    #     for i in query:
-    #         cnt = 0
-    #         differ_flag = False
-    #         #print(info_keys)
-
-    #         for j in info_keys:
-    #             if i[-1] > j:
-    #                 #print("pass", i[-1])
-    #                 break
-    #             for k in info_dict[j]:
-    #                 #print("i", k, m)
-    #                 for n in range(4):
-    #                     if i[n] != '-' and i[n] != k[n]:
-    #                         differ_flag = True
-    #                         break
-    #                 if not differ_flag:
-    #                     cnt += 1
-    #                 else:
-    #                     differ_flag = False
-
-    #         answer.append(cnt)
-    #         #print(cnt)
-    #         cnt = 0
 
     return answer
