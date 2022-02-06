@@ -1,4 +1,4 @@
-def solution(N, stages):
+def solution(N, stages):  # 테스트 22 실패.
     answer = []
 
     target = [Stage(i + 1, 0, 0, 0) for i in range(N)]
@@ -30,3 +30,25 @@ class Stage:
         self.reach = reach
         self.stay = stay
         self.failure = failure
+
+
+# Refactoring
+
+
+def solution(N, stages):  # 통과
+    answer = [[i + 1, 0] for i in range(N)]
+    stay_cnt = 0
+
+    stages.sort(reverse=True)
+
+    for i in range(len(stages)):
+        if stages[i] <= N:
+            stay_cnt += 1
+            answer[stages[i] - 1][1] = stay_cnt / (i + 1)
+
+            if i < len(stages) - 1 and stages[i + 1] != stages[i]:
+                stay_cnt = 0
+
+    answer.sort(key=lambda x: -x[1])
+
+    return [i[0] for i in answer]
