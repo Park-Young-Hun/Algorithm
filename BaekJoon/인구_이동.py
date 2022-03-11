@@ -42,14 +42,17 @@ def bfs(x, y):
 
 while target:
     target = []
-    visited = []
+    visited = [[False] * N for _ in range(N)]
 
     for i in range(N):
         for j in range(N):
-            if (i, j) not in visited:
+            if not visited[i][j]:
                 new_target = bfs(i, j)
-                visited.extend(new_target)
-                target.append(new_target)
+                if new_target:
+                    for x, y in new_target:
+                        visited[x][y] = True
+                    target.append(new_target)
+
     if target:
         for i in target:
             sum_val = 0
