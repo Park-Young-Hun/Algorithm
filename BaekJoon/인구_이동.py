@@ -32,6 +32,7 @@ def bfs(x, y):
 
             if L <= abs(table[x][y] - table[nx][ny]) <= R:
                 local_visited.append((nx, ny))
+                visited[nx][ny] = True
                 queue.append((nx, ny))
 
     if len(local_visited) == 1:
@@ -49,8 +50,6 @@ while target:
             if not visited[i][j]:
                 new_target = bfs(i, j)
                 if new_target:
-                    for x, y in new_target:
-                        visited[x][y] = True
                     target.append(new_target)
 
     if target:
