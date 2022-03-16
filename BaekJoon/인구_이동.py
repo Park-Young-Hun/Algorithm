@@ -4,6 +4,7 @@ from collections import deque
 N, L, R = map(int, sys.stdin.readline().split())
 table = [list(map(int, sys.stdin.readline().split())) for _ in range(N)]
 target = [0]
+cand = deque([(i, j) for i in range(N) for j in range(i % 2, N, 2)])
 answer = 0
 
 dx = [1, 0, -1, 0]
@@ -45,12 +46,12 @@ while target:
     target = []
     visited = [[False] * N for _ in range(N)]
 
-    for i in range(N):
-        for j in range(N):
-            if not visited[i][j]:
-                new_target = bfs(i, j)
-                if new_target:
-                    target.append(new_target)
+    for _ in range(len(cand)):
+        i, j = cand.popleft()
+        if not visited[i][j]:
+            new_target = bfs(i, j)
+            if new_target:
+                target.append(new_target)
 
     if target:
         for i in target:
@@ -61,6 +62,7 @@ while target:
 
             for x, y in i:
                 table[x][y] = sum_val // len(i)
+                cand.append((x, y))
 
         answer += 1
 
