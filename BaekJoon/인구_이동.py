@@ -62,7 +62,7 @@ while target:
 
             for x, y in i:
                 table[x][y] = sum_val // len(i)
-                cand.append((x, y))
+                cand.append((x, y))  # 인구이동이 일어났던 곳만 살펴보면 된다.
 
         answer += 1
 
