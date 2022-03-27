@@ -27,7 +27,7 @@ def dfs(table, r_pos, b_pos, cnt):
                 new_y += dy[i]
 
             cnt += 1
-            if table[new_x][new_y] == 'O':
+            #if table[new_x][new_y] == 'O':
 
 
 
