@@ -3,6 +3,7 @@ import sys
 N = int(sys.stdin.readline())
 numbers = list(map(int, sys.stdin.readline().split()))
 operators = list(map(int, sys.stdin.readline().split()))
+case = ['+', '-', '*', '//']
 result = []
 
 
@@ -29,26 +30,12 @@ def dfs(current_value, next_index, operator, operator_list):
     else:
         for j in range(4):
             if operator_list[j] != 0:
-                if j == 0:
-                    dfs(current_value, next_index + 1, "+", operator_list[:])
-                elif j == 1:
-                    dfs(current_value, next_index + 1, "-", operator_list[:])
-                elif j == 2:
-                    dfs(current_value, next_index + 1, "*", operator_list[:])
-                else:
-                    dfs(current_value, next_index + 1, "//", operator_list[:])
+                dfs(current_value, next_index + 1, case[j], operator_list[:])
 
 
 for i in range(4):
     if operators[i] != 0:
-        if i == 0:
-            dfs(numbers[0], 1, "+", operators[:])
-        elif i == 1:
-            dfs(numbers[0], 1, "-", operators[:])
-        elif i == 2:
-            dfs(numbers[0], 1, "*", operators[:])
-        else:
-            dfs(numbers[0], 1, "//", operators[:])
+        dfs(numbers[0], 1, case[i], operators[:])
 
 print(max(result))
 print(min(result))
