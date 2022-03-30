@@ -2,7 +2,7 @@ import sys
 
 
 def solution(time, pay):
-    dp = [0] * (N + 1)
+    dp = [0] * (N + 1)  # dp 배열 정의 : i일 까지의 최대 수익.
 
     for i in range(N - 1, -1, -1):
         # i일에 상담을 하는 것이 퇴사일을 넘기면 상담을 하지 않음
