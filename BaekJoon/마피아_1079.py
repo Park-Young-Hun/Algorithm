@@ -1,66 +1,70 @@
 import sys
 from copy import deepcopy
 
-
 answer = []
 n = int(sys.stdin.readline())
-guilty = list(map(int, sys.stdin.readline().split()))
-R = [list(map(int, sys.stdin.readline().split())) for _ in range(n)]
+temp = list(map(int, sys.stdin.readline().split()))
+people_list = [[i, temp[i]] for i in range(len(temp))]
+r = [list(map(int, sys.stdin.readline().split())) for _ in range(n)]
 mafia = int(sys.stdin.readline())
-
 cnt = 0
-mafia_target = []
+global escape_flag
+
+escape_flag = False
 
 
+def night(people, count):
+    global escape_flag
 
-for i in range(n):
-    if i != mafia:
-        mafia_target.append((i, R[i][mafia]))
+    for i in people:
+        if i[0] != mafia:
+            temp_cnt = count
+            temp_people = deepcopy(people)
 
-citizen_target = [[i, guilty[i]] for i in range(n)]
+            # print(1, temp_people)
 
-for index in range(n):
-    temp_mafia_target = deepcopy(mafia_target)
-    survivor = [i for i in range(n)]
+            temp_people.remove(i)
 
-    while len(survivor) != 1:
+            for j in range(len(temp_people)):
+                temp_people[j][1] += r[i[0]][temp_people[j][0]]
+            temp_cnt += 1
 
-        if len(survivor) % 2 == 0:  # 밤이 찾아왔습니다.
-            victim = temp_mafia_target.pop(index)
-            survivor.remove(victim[0])
-            cnt += 1
+            # print(2, temp_people)
 
-            for i in citizen_target:
-                if i[0] == victim[0]:
-                    citizen_target.remove(i)
-                    break
+            if len(temp_people) == 1:
+                answer.append(temp_cnt)
+                escape_flag = True
+                # print(temp_cnt)
+                return
 
-            for i in citizen_target:
-                if i[0] == mafia:
-                    i[1] += victim[1]
-                    guilty[i[0]] += victim[1]
-                else:
-                    i[1] += R[victim[0]][i[0]]
-                    guilty[i[0]] += R[victim[0]][i[0]]
+            temp_people.sort(key=lambda x: (x[1], -x[0]))
+            target = temp_people.pop()
 
-            if len(survivor) == 1:
-                break
+            if target[0] == mafia:
+                answer.append(temp_cnt)
+                continue
 
-        else:  # 낮이 밝았습니다.
-            citizen_target.sort(key=lambda x: (x[1], -x[0]))
-            victim = citizen_target.pop()
-            survivor.remove(victim[0])
+            if len(temp_people) == 1:
+                answer.append(temp_cnt)
+                escape_flag = True
+                return
+            # print(3, temp_people)
 
-            if victim[0] == mafia:
-                break
+            night(temp_people, temp_cnt)
+            if escape_flag:
+                return
+    return
 
-            for i in temp_mafia_target:
-                if i[0] == victim[0]:
-                    temp_mafia_target.remove(i)
-                    break
 
-    answer.append(cnt)
-print(answer)
+if n % 2 != 0:
+    people_list.sort(key=lambda x: (x[1], -x[0]))
+    victim = people_list.pop()
+
+    if victim[0] == mafia:
+        answer.append(cnt)
+    else:
+        night(people_list, cnt)
+else:
+    night(people_list, cnt)
+
 print(max(answer))
-
-
