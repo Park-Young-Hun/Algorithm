@@ -1,54 +1,39 @@
-import sys
+import sys; input = sys.stdin.readline
 
-n, m = map(int, sys.stdin.readline().split())
 
-table = [list(map(int, sys.stdin.readline().split())) for _ in range(n)]
-answer = []
+def dfs(r, c, idx, total):
+    global ans
+    if ans >= total + max_val * (3 - idx):
+        return
+    if idx == 3:
+        ans = max(ans, total)
+        return
+    else:
+        for i in range(4):
+            nr = r + dr[i]
+            nc = c + dc[i]
+            if 0 <= nr < N and 0 <= nc < M and visit[nr][nc] == 0:
+                if idx == 1:
+                    visit[nr][nc] = 1
+                    dfs(r, c, idx + 1, total + arr[nr][nc])
+                    visit[nr][nc] = 0
+                visit[nr][nc] = 1
+                dfs(nr, nc, idx + 1, total + arr[nr][nc])
+                visit[nr][nc] = 0
 
-for i in range(n):
-    for j in range(m):
-        if j + 3 < m:  # 일자 모양 2종류
-            answer.append(table[i][j] + table[i][j+1] + table[i][j+2] + table[i][j+3])
-        if i + 3 < n:
-            answer.append(table[i][j] + table[i+1][j] + table[i+2][j] + table[i+3][j])
 
-        if i + 1 < n and j + 1 < m:  # 정사각형 모양 1종류
-            answer.append(table[i][j] + table[i][j+1] + table[i+1][j] + table[i+1][j+1])
+N, M = map(int, input().split())
+arr = [list(map(int, input().split())) for _ in range(N)]
+visit = [([0] * M) for _ in range(N)]
+dr = [-1, 0, 1, 0]
+dc = [0, 1, 0, -1]
+ans = 0
+max_val = max(map(max, arr))
 
-        if i + 2 < n and j + 1 < m:  # ㄴ자 모양 8종류
-            answer.append(table[i][j] + table[i+1][j] + table[i+2][j] + table[i+2][j+1])
-        if i + 2 < n and j - 1 >= 0:
-            answer.append(table[i][j] + table[i+1][j] + table[i+2][j] + table[i+2][j-1])
-        if i + 2 < n and j - 1 >= 0:
-            answer.append(table[i][j] + table[i][j-1] + table[i+1][j-1] + table[i+2][j-1])
-        if i + 2 < n and j + 1 < m:
-            answer.append(table[i][j] + table[i][j+1] + table[i+1][j+1] + table[i+2][j+1])
-        if i + 1 < n and j + 2 < m:
-            answer.append(table[i][j] + table[i+1][j] + table[i+1][j+1] + table[i+1][j+2])
-        if i + 1 < n and j - 2 >= 0:
-            answer.append(table[i][j] + table[i+1][j] + table[i+1][j-1] + table[i+1][j-2])
-        if i - 1 >= 0 and j + 2 < m:
-            answer.append(table[i][j] + table[i-1][j] + table[i-1][j+1] + table[i-1][j+2])
-        if i - 1 >= 0 and j - 2 >= 0:
-            answer.append(table[i][j] + table[i-1][j] + table[i-1][j-1] + table[i-1][j-2])
+for r in range(N):
+    for c in range(M):
+        visit[r][c] = 1
+        dfs(r, c, 0, arr[r][c])
+        visit[r][c] = 0
 
-        if i + 2 < n and j + 1 < m:  # 지그재그 모양 4종류
-            answer.append(table[i][j] + table[i+1][j] + table[i+1][j+1] + table[i+2][j+1])
-        if i + 2 < n and j - 1 >= 0:
-            answer.append(table[i][j] + table[i+1][j] + table[i+1][j-1] + table[i+2][j-1])
-        if i + 1 < n and j + 2 < m:
-            answer.append(table[i][j] + table[i][j+1] + table[i+1][j+1] + table[i+1][j+2])
-        if i - 1 >= 0 and j + 2 < m:
-            answer.append(table[i][j] + table[i][j+1] + table[i-1][j+1] + table[i-1][j+2])
-
-        if i - 1 >= 0 and j + 2 < m:  # ㅗ모양 4종류
-            answer.append(table[i][j] + table[i][j+1] + table[i-1][j+1] + table[i][j+2])
-        if i + 1 < n and j + 2 < m:
-            answer.append(table[i][j] + table[i][j+1] + table[i+1][j+1] + table[i][j+2])
-        if i + 2 < n and j + 1 < m:
-            answer.append(table[i][j] + table[i+1][j] + table[i+1][j+1] + table[i+2][j])
-        if i + 2 < n and j - 1 >= 0:
-            answer.append(table[i][j] + table[i+1][j] + table[i+1][j-1] + table[i+2][j])
-
-print(max(answer))
-
+print(ans)
