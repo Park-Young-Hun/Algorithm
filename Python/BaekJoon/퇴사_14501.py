@@ -25,4 +25,3 @@ for _ in range(N):
     P.append(p)
 
 print(solution(T, P))
-
