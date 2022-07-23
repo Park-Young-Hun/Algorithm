@@ -1,65 +1,32 @@
 import sys
-import math
+from collections import deque
 
-home = []
-store = []
-festival = []
-store_nums = []
+
+def check():
+    q = deque([start])
+    visited = set()
+    while q:
+        x, y = q.popleft()
+        if abs(x-festival[0]) + abs(y-festival[1]) <= 1000:
+            return True
+        for i in range(n):
+            if i not in visited:
+                nx, ny = store[i]
+                if abs(x-nx) + abs(y-ny) <= 1000:
+                    q.append((nx, ny))
+                    visited.add(i)
+    return False
+
 
 t = int(sys.stdin.readline())
 
 for i in range(t):
     n = int(sys.stdin.readline())
-    store_nums.append(n)
-    home.append(tuple(map(int, sys.stdin.readline().split())))
+    start = tuple(map(int, sys.stdin.readline().split()))
+    store = [tuple(map(int, sys.stdin.readline().split())) for _ in range(n)]
+    festival = tuple(map(int, sys.stdin.readline().split()))
 
-    if n > 0:
-        temp_store = []
-        for j in range(n):
-            temp_store.append(tuple(map(int, sys.stdin.readline().split())))
-
-        store.append(temp_store)
-
-    festival.append(tuple(map(int, sys.stdin.readline().split())))
-
-for i in range(t):
-    beers = 20
-    answer = ""
-    n = store_nums[i]
-
-    if n == 0:
-        distance = abs(festival[i][0] - home[i][0]) + abs(festival[i][1] - home[i][1])
-        needs = math.ceil(distance / 50)
-        if needs > beers:
-            answer = "sad"
-        else:
-            answer = "happy"
-        print(answer)
-        continue
-
-    distance = abs(store[i][0][0] - home[i][0]) + abs(store[i][0][1] - home[i][1])
-    needs = math.ceil(distance / 50)
-    if needs > beers:
-        answer = "sad"
-        print(answer)
-        continue
-
-    if n > 1:
-        for j in range(1, n):
-            beers = 20
-            distance = abs(store[i][j][0] - store[i][j - 1][0]) + abs(store[i][j][1] - store[i][j - 1][1])
-            needs = math.ceil(distance / 50)
-            if needs > beers:
-                answer = "sad"
-                break
-        if answer == "sad":
-            print(answer)
-            continue
-    distance = abs(festival[i][0] - store[i][n-1][0]) + abs(festival[i][1] - store[i][n-1][1])
-    needs = math.ceil(distance / 50)
-
-    if needs > beers:
-        answer = "sad"
+    if check():
+        print("happy")
     else:
-        answer = "happy"
-    print(answer)
+        print("sad")
