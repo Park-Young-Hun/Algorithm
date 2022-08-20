@@ -115,10 +115,6 @@ for case in cases:
                 dfs(i, j, 'R')
                 camera_num += 1
     answer.append(zero_cnt())
-    # for i in table:
-    #     print(i)
-    # print(zero_cnt())
-    # print()
 
 print(min(answer))
 
