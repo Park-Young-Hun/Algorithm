@@ -30,4 +30,6 @@ def binary_search(money_list):
     left = money_list[0]
     right = money_list[-1]
 
-    
+    mid = (left + right) // 2
+
+
