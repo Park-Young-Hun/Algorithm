@@ -1,4 +1,5 @@
 import sys
+from math import ceil
 
 
 n, m = map(int, sys.stdin.readline().split())
@@ -27,9 +28,19 @@ def simulate(k, money_list):
 
 
 def binary_search(money_list):
-    left = money_list[0]
-    right = money_list[-1]
+    left = min(money_list)
+    right = max(money_list)
 
-    mid = (left + right) // 2
+    while left < right:
+        mid = (left + right) // 2
+        print(mid)
 
+        if simulate(mid, money_list):
+            right = mid - 1
+        else:
+            left = mid + 1
+    return mid
+
+
+print(binary_search(moneys))
 
