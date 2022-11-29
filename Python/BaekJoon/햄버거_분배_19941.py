@@ -3,7 +3,7 @@ from collections import deque
 
 n, k = map(int, sys.stdin.readline().split())
 table = list(sys.stdin.readline())
-hamburgers = deque()
+hamburgers = []
 people = deque()
 
 for i in range(len(table)):
