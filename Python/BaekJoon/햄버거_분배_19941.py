@@ -1,22 +1,18 @@
 import sys
-from collections import deque
 
 n, k = map(int, sys.stdin.readline().split())
-table = list(sys.stdin.readline())
-hamburgers = []
-people = deque()
+table = list(sys.stdin.readline())[:-1]
+people = []
+answer = 0
 
-for i in range(len(table)):
-    if table[i] == 'H':
-        hamburgers.append(i)
-    else:
+for i in range(n):
+    if table[i] == 'P':
         people.append(i)
-print(hamburgers)
-print(people)
 
-while hamburgers and people:
-    person = people.popleft()
-
-    for hamburger in hamburgers:
-        if abs(hamburger-person) <= k:
-            hamburgers.remove(hamburger)
+for person in people:
+    for i in range(max(0, person - k), min(person + k + 1, n)):  # 먹을 수 있는 범위의 햄버거만 탐색.
+        if table[i] == 'H':
+            table[i] = 'N'
+            answer += 1
+            break
+print(answer)
