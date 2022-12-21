@@ -1,30 +1,31 @@
-import sys
+n, c = map(int, input().split())
 
-n, c = map(int, sys.stdin.readline().split())
-houses = [int(sys.stdin.readline()) for _ in range(n)]
-houses.sort()
+house = []
+for _ in range(n):
+    x = int(input())
+    house.append(x)
 
+house.sort()
 
-def solution(n, c, houses):
-    answer = []
-    left = 0
-    right = n-1
-    c -= 2
+start = 1
+end = house[-1] - house[0]
 
-    while c > 0 and left <= right:
-        mid = (left + right) // 2
-        left_distance = houses[mid] - houses[left]
-        right_distance = houses[right] - houses[mid]
+result = 0
 
-        if left_distance > right_distance:
-            right = mid
-            answer.append(right_distance)
-        else:
-            left = mid
-            answer.append(left_distance)
-        c -= 1
-    #print(answer)
-    return max(answer)
+while start <= end:
+    mid = (start + end) // 2
+    current = house[0]
+    count = 1
 
+    for i in range(1, len(house)):
+        if house[i] >= current + mid:
+            count += 1
+            current = house[i]
 
-print(solution(n, c, houses))
+    if count >= c:
+        start = mid + 1
+        result = mid
+    else:
+        end = mid - 1
+
+print(result)
