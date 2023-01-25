@@ -27,5 +27,11 @@ public class PronouncePassword_4659 {
         bw.flush();
     }
 
-    public String solution
+    public String solution(List<String> passwords) {
+        String[] vowel = new String['a'];
+
+        for (String password : passwords) {
+
+        }
+    }
 }
