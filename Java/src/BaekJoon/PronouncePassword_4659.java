@@ -28,7 +28,7 @@ public class PronouncePassword_4659 {
     }
 
     public String solution(List<String> passwords) {
-        String[] vowel = new String['a'];
+        String[] vowel = {"a", "e", "o", "i", "u"};
 
         for (String password : passwords) {
 
