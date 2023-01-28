@@ -28,10 +28,14 @@ public class PronouncePassword_4659 {
     }
 
     public String solution(List<String> passwords) {
-        String[] vowel = {"a", "e", "o", "i", "u"};
+        String[] vowels = {"a", "e", "o", "i", "u"};
 
         for (String password : passwords) {
-
+            for (String vowel : vowels) {
+                if (!password.contains(vowel)) {
+                    return "not acceptable";
+                }
+            }
         }
     }
 }
