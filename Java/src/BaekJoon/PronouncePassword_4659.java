@@ -1,17 +1,16 @@
 package BaekJoon;
 
 import java.io.*;
+import java.util.ArrayDeque;
 import java.util.ArrayList;
+import java.util.Deque;
 import java.util.List;
-import java.util.Objects;
-import java.util.StringTokenizer;
 
 public class PronouncePassword_4659 {
 
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
-        //StringTokenizer st = new StringTokenizer(br.readLine());
 
         List<String> passwords = new ArrayList<>();
 
@@ -31,11 +30,7 @@ public class PronouncePassword_4659 {
         String[] vowels = {"a", "e", "o", "i", "u"};
 
         for (String password : passwords) {
-            for (String vowel : vowels) {
-                if (!password.contains(vowel)) {
-                    return "not acceptable";
-                }
-            }
+            Deque<String> queue = new ArrayDeque<>();
         }
     }
 }
