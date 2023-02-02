@@ -27,10 +27,10 @@ public class PronouncePassword_4659 {
     }
 
     public String solution(List<String> passwords) {
-        String[] vowels = {"a", "e", "o", "i", "u"};
+        String vowels = "aeoiu";
 
         for (String password : passwords) {
-            Deque<String> queue = new ArrayDeque<>();
+            
         }
     }
 }
