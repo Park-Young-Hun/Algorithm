@@ -28,9 +28,5 @@ public class PronouncePassword_4659 {
 
     public String solution(List<String> passwords) {
         String vowels = "aeoiu";
-
-        for (String password : passwords) {
-            
-        }
     }
 }
