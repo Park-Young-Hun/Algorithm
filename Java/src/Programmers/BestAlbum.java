@@ -27,7 +27,9 @@ public class BestAlbum {
         for (String key : genreMap.keySet()) {
             Integer playSum = 0;
 
-            genreMap.get(key).sort((s1, s2) -> s1.get(1).equals(s2.get(1)) ? s1.get(0) - s2.get(0) : s2.get(1) - s1.get(1));
+            genreMap.get(key).sort(
+                    (s1, s2) -> s1.get(1).equals(s2.get(1)) ? s1.get(0) - s2.get(0) : s2.get(1) - s1.get(1)
+            );
 
             for (List<Integer> songs : genreMap.get(key)) {
                 playSum += songs.get(1);
