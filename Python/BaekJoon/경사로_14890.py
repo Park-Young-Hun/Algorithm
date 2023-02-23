@@ -10,6 +10,8 @@ for i in range(N):
         col.append(rows[j][i])
     cols.append(col)
 
+roads = rows + cols
+
 
 def can_pass(N, L, road):
     length = 1  # 같은 높이의 칸 갯수
@@ -45,17 +47,14 @@ def can_pass(N, L, road):
     return True
 
 
-def solution(N, L, rows, cols):
+def solution(N, L, roads):
     answer = 0
 
-    for row in rows:
-        if can_pass(N, L, row):
+    for road in roads:
+        if can_pass(N, L, road):
             answer += 1
 
-    for col in cols:
-        if can_pass(N, L, col):
-            answer += 1
     return answer
 
 
-print(solution(N, L, rows, cols))
+print(solution(N, L, roads))
