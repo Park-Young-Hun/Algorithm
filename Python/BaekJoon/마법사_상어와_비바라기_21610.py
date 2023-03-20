@@ -1,6 +1,15 @@
 import sys
 
 
+def make_in_bound(n, pos):
+    if pos < 0:
+        return pos + n
+    elif pos >= n:
+        return pos - n
+    else:
+        return pos
+
+
 def solution(n, m, grid, cmd):
     delta = [(0, -1), (-1, -1), (-1, 0), (-1, 1), (0, 1), (1, 1), (1, 0), (1, -1)]
     cloud = [[n - 1, 0], [n - 1, 1], [n - 2, 0], [n - 2, 1]]
@@ -8,28 +17,18 @@ def solution(n, m, grid, cmd):
     for d, s in cmd:
         visited = [[False] * n for _ in range(n)]
 
-        for i in range(len(cloud)):
+        for i in range(len(cloud)):  # 구름 이동 및 비 내리기.
             delta_row, delta_col = delta[d - 1]
 
-            new_row = cloud[i][0] + s * delta_row
-            new_col = cloud[i][1] + s * delta_col
-
-            while new_row < 0 or new_row >= n or new_col < 0 or new_col >= n:
-                if new_row < 0:
-                    new_row += n
-                elif new_row >= n:
-                    new_row -= n
-                elif new_col < 0:
-                    new_col += n
-                elif new_col >= n:
-                    new_col -= n
+            new_row = make_in_bound(n, cloud[i][0] + s * delta_row % n)
+            new_col = make_in_bound(n, cloud[i][1] + s * delta_col % n)
 
             grid[new_row][new_col] += 1
             visited[new_row][new_col] = True
             cloud[i][0] = new_row
             cloud[i][1] = new_col
 
-        while cloud:
+        while cloud:  # 물 복사 마법.
             cnt = 0
             row, col = cloud.pop()
 
@@ -44,7 +43,7 @@ def solution(n, m, grid, cmd):
 
             grid[row][col] += cnt
 
-        for i in range(n):
+        for i in range(n):  # 새로운 구름 생성.
             for j in range(n):
                 if grid[i][j] >= 2 and not visited[i][j]:
                     cloud.append([i, j])
