@@ -49,7 +49,7 @@ class Dice:
         self.right = temp_top
 
 
-def decide_direction(direction, bottom, target):
+def decide_direction(direction: int, bottom: int, target: int):
     if bottom > target:
         direction = (direction + 1) % 4
     elif bottom < target:
@@ -86,7 +86,7 @@ def calc_score(target: int, pos: tuple):
     return cnt * target
 
 
-def solution(n, m, k, grid):
+def solution(n: int, m: int, k: int, grid: list):
     answer = 0
     direction = 0
     row, col = 0, 0
