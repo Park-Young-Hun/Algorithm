@@ -1,35 +1,21 @@
 import sys
-from bisect import bisect_left
-
-
-class Gem:
-    def __init__(self, weight, value):
-        self.weight = weight
-        self.value = value
+import heapq
 
 
 def solution(gems, bags):
     answer = 0
-    is_used = [False] * (len(bags) + 1)
+    values = []
 
-    for i in range(len(gems)):
-        gems[i] = Gem(gems[i][0], gems[i][1])
-
-    gems.sort(key=lambda x: (-x.value, x.weight))
+    gems.sort()
     bags.sort()
 
-    for gem in gems:
-        target_index = bisect_left(bags, gem.weight)
+    for bag in bags:
+        while gems and gems[0][0] <= bag:  # 담을 수 있는 보석들 중에서
+            heapq.heappush(values, -gems[0][1])  # 가격을 최대힙에 저장(음수로 저장하여 최소힙을 최대힙으로)
+            heapq.heappop(gems)  # 가격 저장한 보석은 버리기
 
-        while is_used[target_index]:
-            target_index += 1
-
-        if target_index >= len(bags):
-            continue
-
-        is_used[target_index] = True
-        answer += gem.value
-
+        if values:  # bag 무게 이하 보석 가격 다 저장했으면
+            answer -= heapq.heappop(values)  # 제일 가치가 높은 가격 더하기(음수니까 빼기)
     return answer
 
 
