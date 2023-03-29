@@ -2,20 +2,26 @@ import sys
 
 
 def solution(target, input_string):
-    seperated_string = input_string.split(target)
+    stack = []
 
-    while len(seperated_string) > 1:
-        new_string = "".join(seperated_string)
-        seperated_string = new_string.split(target)
+    for char in input_string:
+        stack.append(char)
 
-    new_string = "".join(seperated_string)
+        if len(stack) < len(target):
+            continue
 
-    if not new_string:
-        new_string = "FRULA"
-    return new_string
+        temp = stack[-len(target):]
+
+        if "".join(temp) == target:
+            for _ in range(len(target)):
+                stack.pop()
+
+    if not stack:
+        stack.append("FRULA")
+
+    return "".join(stack)
 
 
 input_string = sys.stdin.readline().rstrip()
 target = sys.stdin.readline().rstrip()
-
 print(solution(target, input_string))
