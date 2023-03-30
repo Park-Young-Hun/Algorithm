@@ -2,7 +2,6 @@ import sys
 
 
 def solution(n, k, sensors):
-    answer = 0
     sections = []
 
     sensors = list(set(sensors))
@@ -11,18 +10,15 @@ def solution(n, k, sensors):
     if k >= len(sensors):
         return 0
 
-    for i in range(len(sensors)-1):
-        sections.append(sensors[i+1] - sensors[i])
+    for i in range(len(sensors) - 1):
+        sections.append(sensors[i + 1] - sensors[i])
 
     sections.sort()
 
-    for _ in range(k-1):
+    for _ in range(k - 1):
         sections.pop()
 
-    for section in sections:
-        answer += section
-
-    return answer
+    return sum(sections)
 
 
 n = int(sys.stdin.readline())
