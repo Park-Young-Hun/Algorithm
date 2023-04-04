@@ -1,14 +1,20 @@
 import sys
-from collections import defaultdict
 
 
 def solution(n, k, stuffs):
-    value = defaultdict(int)
-    stuffs.sort(key=lambda x: (x[0], -x[1]))
-    print(stuffs)
+    dp = [[0] * (k+1) for _ in range(n+1)]
+    stuff = [(0, 0)]
+    stuff.extend(stuffs)
 
-    for weight, val in stuffs:
-        value[weight] = val
+    for i in range(1, n+1):
+        weight, val = stuff[i]
+
+        for j in range(1, k+1):
+            if weight > j:
+                dp[i][j] = dp[i-1][j]
+            else:
+                dp[i][j] = max(dp[i-1][j], dp[i-1][j-weight] + val)
+    return dp[n][k]
 
 
 n, k = map(int, sys.stdin.readline().split())
