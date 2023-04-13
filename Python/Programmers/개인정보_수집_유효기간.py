@@ -1,22 +1,8 @@
-def calc_date(kind, year, month, day):
-    month += term_dict[kind]
-
-    if month > 12:
-        share, remainder = divmod(month, 12)
-
-        if remainder == 0:
-            share -= 1
-            remainder = 12
-        year += share
-        month = remainder
-
-    return year, month, day
-
-
 def solution(today, terms, privacies):
     answer = []
-    global term_dict
     term_dict = {}
+    now_year, now_month, now_day = map(int, today.split('.'))
+    now_date = now_year * 12 * 28 + now_month * 28 + now_day
 
     for term in terms:
         kind, month = term.split()
@@ -24,17 +10,11 @@ def solution(today, terms, privacies):
 
     for i in range(len(privacies)):
         date, kind = privacies[i].split()
+
         year, month, day = map(int, date.split('.'))
+        month += term_dict[kind]
+        date = year * 12 * 28 + month * 28 + day
 
-        year, month, day = calc_date(kind, year, month, day)
-        now_year, now_month, now_day = map(int, today.split('.'))
-
-        if now_year > year:
+        if now_date >= date:
             answer.append(i + 1)
-
-        if now_year == year:
-            if now_month > month:
-                answer.append(i + 1)
-            if now_month == month and now_day >= day:
-                answer.append(i + 1)
     return answer
