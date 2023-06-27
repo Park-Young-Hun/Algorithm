@@ -1,32 +1,23 @@
 import sys
-from collections import deque
 
 
 def solution(n, grid):
-    answer = 0
-    delta = [(1, 0), (0, 1)]
-    q = deque([(0, 0)])
+    dp = [[0] * n for _ in range(n)]
 
-    while q:
-        answer *= len(q)
+    dp[0][0] = 1
 
-        for _ in range(len(q)):
-            row, col = q.popleft()
-
-            if row == n - 1 and col == n - 1:
-                answer += 1
+    for i in range(n):
+        for j in range(n):
+            if grid[i][j] <= 0:
                 continue
 
-            for row_delta, col_delta in delta:
-                new_row = row + row_delta * grid[row][col]
-                new_col = col + col_delta * grid[row][col]
+            if j + grid[i][j] < n:
+                dp[i][j + grid[i][j]] += dp[i][j]
 
-                if new_row >= n or new_col >= n:
-                    continue
-
-                q.append((new_row, new_col))
-
-    return answer
+            if i + grid[i][j] < n:
+                dp[i + grid[i][j]][j] += dp[i][j]
+    
+    return dp[n-1][n-1]
 
 
 n = int(sys.stdin.readline())
