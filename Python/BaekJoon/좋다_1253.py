@@ -1,30 +1,26 @@
 import sys
-from collections import defaultdict
-from copy import deepcopy
 
 
 def solution(n, nums):
     answer = 0
     nums.sort()
 
-    nums_cnt = defaultdict(int)
+    for i in range(n):
+        temp = nums[:i] + nums[i+1:]
 
-    for num in nums:
-        nums_cnt[num] += 1
+        left = 0
+        right = len(temp) - 1
 
-    for target in nums:
-        temp_cnt = deepcopy(nums_cnt)
+        while left < right:
+            sum_val = temp[left] + temp[right]
 
-        for num in nums:
-            if temp_cnt[num] > 0:
-                temp_cnt[num] -= 1
-
-                if temp_cnt[target - num] > 0 and target != target - num:
-                    temp_cnt[target - num] -= 1
-                    answer += 1
-                    break
-                else:
-                    temp_cnt[num] += 1
+            if sum_val == nums[i]:
+                answer += 1
+                break
+            elif sum_val > nums[i]:
+                right -= 1
+            else:
+                left += 1
 
     return answer
 
